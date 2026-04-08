@@ -1,0 +1,35 @@
+<h1>My Drive</h1>
+
+<!-- Create folder -->
+ <form method="POST" action="/folders">
+    <input name="name" placeholder="New folder name" required />
+    <button type="submit">Create Folder</button>
+ </form>
+
+<!-- Upload file (no folder) -->
+ <form method="POST" action="/files/upload" enctype="multipart/form-data">
+    <input type="file" name="file" required />
+    <button type="submit">Upload</button>
+ </form>
+
+ <!-- Folders list -->
+  <% folders.forEach(folder => { %>
+    <div>
+        <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
+        (<%= folder.files.length %> files)
+        <form method="POST" action="/folders/<%= folder.id %>/delete" style="display:inline">
+            <button>Delete</button>
+        </form>
+    </div>
+  <% }) %>
+
+<!-- Files without a folder -->
+<% if (typeof files !== 'undefined' && files.length > 0) { %>
+    <h2>Loose files</h2>
+    <% files.forEach(file => { %>
+        <div>
+            <a href="/files/<%= file.id %>"><%= file.name %></a>
+            (<%= (file.size / 1024).toFixed(1) %> KB)
+        </div>
+    <% }) %>
+<% } %>

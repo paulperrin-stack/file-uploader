@@ -1,0 +1,8 @@
+<h1><%= file.name %></h1>
+<p>Size: <%= (file.size / 1024).toFixed(1) %> KB</p>
+<p>Uploaded: <%= file.uploadedAt.toLocaleDateString() %></p>
+<a href="/files/<%= file.id %>/download">Download</a>
+<form method="POST" action="/files/<%= file.id %>/delete">
+    <button>Delete</button>
+</form>
+<a href="/folders/<%= file.folderId %>">Back to folder</a>
